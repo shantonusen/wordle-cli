@@ -12,9 +12,10 @@ To download the code and run it:
 ```bash
 git clone https://github.com/shantonusen/wordle-cli.git && cd wordle-cli
 python3 distribution.py
+python3 doubles.py
 ```
 
-## distribution.py
+## `distribution.py`
 
 ```
 LETTER COUNT PERCENT  OCCURSIN PERCWORDS
@@ -44,4 +45,72 @@ Z         40    0.3%   35/2309      1.5%
 X         37    0.3%   37/2309      1.6%
 Q         29    0.3%   29/2309      1.3%
 J         27    0.2%   27/2309      1.2%
+```
+
+## `doubles.py`
+
+```
+Answers with a triple repeating letters, and a double repeating letter: 1/2309
+  MAMMA
+Answers with triple repeating letters: 19/2309
+  BOBBY
+  DADDY
+  EERIE
+  EMCEE
+  ERROR
+  FLUFF
+  GEESE
+  MAMMY
+  MELEE
+  MUMMY
+  NANNY
+  NINNY
+  POPPY
+  PUPPY
+  RARER
+  SASSY
+  SISSY
+  TATTY
+  TEPEE
+Answers with double-double repeating letters: 38/2309
+  ALLAY
+  AMASS
+  ARRAY
+  ASSAY
+  BELLE
+  BOOBY
+  CACAO
+  CIVIC
+  COCOA
+  FEMME
+  FREER
+  GAMMA
+  KAPPA
+  KAYAK
+  LEVEL
+  LLAMA
+  MADAM
+  MAGMA
+  MIMIC
+  MINIM
+  MOTTO
+  ONION
+  PAPAL
+  PENNE
+  QUEUE
+  RADAR
+  REFER
+  ROTOR
+  SALSA
+  SENSE
+  SHUSH
+  SLYLY
+  TEETH
+  TENET
+  TOOTH
+  TWEET
+  VERVE
+  VIVID
+Answers with double repeating letters: 689/2309
+  <not printed>
 ```
