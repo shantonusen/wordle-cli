@@ -117,7 +117,7 @@ class CLIPlayer:
             self.out(share_text + "\n")
 
     def handle_loss(self, solutions):
-        self.out(f"{ self._C.LOSE }🤦 LOSE! The solution was { solutions }")
+        self.out(f"{ self._C.LOSE }🤦 LOSE! The solution was { ' '.join(solutions) }")
 
     def quit(self):
         self.out(f"{ self._C.LOSE }QUIT!")
