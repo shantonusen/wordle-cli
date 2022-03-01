@@ -90,13 +90,14 @@ class CLIPlayer:
         sys.stdout.write(f"\033[A\033[{len(prompt)}C\033[K") # move cursor up one line, right by len(prompt), then clear rest of line
         return guess
 
-    def handle_response(self, guess: str, states: List[LetterStates], hint: int):
-        self._response_history.append((guess, states))
-        for letter, state in zip(guess, states):
-            # only change a letter's keyboard status if new status is "better" (avoids repeat letter problem)
-            if state.value > self._keyboard_status[letter].value:
-                self._keyboard_status[letter] = state
-        self.out(self.pretty_response(guess, states, self._C)+(f" { self._C.DIM }{ hint } possible" if hint != -1 else ""))
+    def handle_response(self, guess: str, states_array: List[List[LetterStates]], hint: int):
+        self._response_history.append((guess, states_array))
+        for states in states_array:
+            for letter, state in zip(guess, states):
+                # only change a letter's keyboard status if new status is "better" (avoids repeat letter problem)
+                if state.value > self._keyboard_status[letter].value:
+                    self._keyboard_status[letter] = state
+        self.out(self.pretty_response(guess, states_array, self._C)+(f" { self._C.DIM }{ hint } possible" if hint != -1 else ""))
         self.update_keyboard()
 
     def warn(self, warning):
@@ -115,8 +116,8 @@ class CLIPlayer:
             self.out(f"📣 Shareable summary:")
             self.out(share_text + "\n")
 
-    def handle_loss(self, solution):
-        self.out(f"{ self._C.LOSE }🤦 LOSE! The solution was { solution }")
+    def handle_loss(self, solutions):
+        self.out(f"{ self._C.LOSE }🤦 LOSE! The solution was { solutions }")
 
     def quit(self):
         self.out(f"{ self._C.LOSE }QUIT!")
@@ -133,7 +134,7 @@ class CLIPlayer:
     def update_keyboard(self):
         if self._lines_since_keyboard >= 1:
             sys.stdout.write(f"\033[{self._lines_since_keyboard}F") # move cursor up to keyboard line
-        sys.stdout.write(self.pretty_response(list(self._keyboard_status.keys()), list(self._keyboard_status.values()), self._C)+"\xA0")
+        sys.stdout.write(self.pretty_response(list(self._keyboard_status.keys()), [list(self._keyboard_status.values())], self._C)+"\xA0")
         if self._lines_since_keyboard >= 1:
             sys.stdout.write(f"\033[{self._lines_since_keyboard}E") # move cursor back down
         elif self._lines_since_keyboard == -1:
@@ -142,8 +143,13 @@ class CLIPlayer:
 
     # static method for use by other Player types
     @staticmethod
-    def pretty_response(word, states, config: CLIConfig) -> str:
-        return "".join(f"{ config.STATE_COLOURS[state] }{ letter }{ config.RESET }" for letter, state in zip(word, states))
+    def pretty_response(word, states_array, config: CLIConfig) -> str:
+        outstr = ""
+        for states in states_array:
+            if len(outstr):
+                outstr += " "
+            outstr += "".join(f"{ config.STATE_COLOURS[state] }{ letter }{ config.RESET }" for letter, state in zip(word, states))
+        return outstr
 
     @staticmethod
     def try_clipboard(text) -> bool:

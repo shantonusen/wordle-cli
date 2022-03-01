@@ -13,7 +13,7 @@ class Game:
     LENGTH = 5
     WIN_STATES = [LetterStates.CORRECTPOSITION for _ in range(LENGTH)]
 
-    def __init__(self, path_solutions="data/solutions.txt", path_guesses="data/guesses.txt", rounds=DEFAULT_ROUNDS):
+    def __init__(self, path_solutions="data/solutions.txt", path_guesses="data/guesses.txt"):
         with open(os.path.join(os.path.dirname(__file__), path_solutions), "r") as f:
             self.VALID_SOLUTIONS = tuple(l.upper() for l in f.read().splitlines() if len(l) == self.LENGTH)
 
@@ -25,14 +25,12 @@ class Game:
 
         self.POSSIBLE_WORDS = list(self.VALID_GUESSES)
 
-        self.rounds = rounds
-
-    def play(self, player, solution, hints=False):
+    def play(self, player, solutions, hints=False, rounds=DEFAULT_ROUNDS):
         player.start()
         round = 1
-        while round <= self.rounds:
+        while round <= rounds:
             while True:
-                guess = player.guess(round, self.rounds)
+                guess = player.guess(round, rounds)
                 if player.ASSUME_GUESSES_VALID:
                     break
                 elif len(guess) != self.LENGTH or not guess.isalpha():
@@ -43,24 +41,25 @@ class Game:
                 else:
                     break
 
-            states = Game.check_guess(guess, solution)
+            states_array = [Game.check_guess(guess, solution) for solution in solutions]
 
-            if hints and states != Game.WIN_STATES:
-                self.POSSIBLE_WORDS = [w for w in self.POSSIBLE_WORDS if Game.is_same_response(guess, w, states)]
-                hint = len(self.POSSIBLE_WORDS)
-            else:
-                hint = -1
+#            if hints and states != Game.WIN_STATES:
+#                self.POSSIBLE_WORDS = [w for w in self.POSSIBLE_WORDS if Game.is_same_response(guess, w, states)]
+#                hint = len(self.POSSIBLE_WORDS)
+#            else:
+#                hint = -1
+            hint = -1
 
-            player.handle_response(guess, states, hint)
-            if states == Game.WIN_STATES:
+            player.handle_response(guess, states_array, hint)
+            if states_array == [Game.WIN_STATES for i in range(len(solutions))]:
                 if hasattr(player, "handle_win"):
-                    player.handle_win(round, self.rounds)
+                    player.handle_win(round, rounds)
                 return round
 
             round += 1
 
         if hasattr(player, "handle_loss"):
-            player.handle_loss(solution)
+            player.handle_loss(solutions)
         return None
 
     @staticmethod
