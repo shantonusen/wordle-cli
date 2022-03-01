@@ -85,7 +85,7 @@ class CLIPlayer:
         self.update_keyboard()
 
     def guess(self, round, out_of_rounds) -> str:
-        prompt = f"Guess { round }/{ out_of_rounds }: "
+        prompt = "{:>13}".format(f"Guess { round }/{ out_of_rounds }: ")
         guess = input(prompt).upper()
         sys.stdout.write(f"\033[A\033[{len(prompt)}C\033[K") # move cursor up one line, right by len(prompt), then clear rest of line
         return guess
@@ -138,8 +138,8 @@ class CLIPlayer:
         if self._lines_since_keyboard >= 1:
             sys.stdout.write(f"\033[{self._lines_since_keyboard}E") # move cursor back down
         elif self._lines_since_keyboard == -1:
-            sys.stdout.write("\n")
-            self._lines_since_keyboard = 1
+            sys.stdout.write("\n\n")
+            self._lines_since_keyboard = 2
 
     # static method for use by other Player types
     @staticmethod

@@ -37,7 +37,7 @@ if __name__=="__main__":
     if not fixed_solutions:
         fixed_solutions = [random.choice(game.VALID_SOLUTIONS)]
 
-    rounds = len(fixed_solutions) + 4 + 1
+    rounds = len(fixed_solutions) + 5
 
     while True:
         try:
