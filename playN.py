@@ -27,13 +27,7 @@ if __name__=="__main__":
         if arg == "-h" or arg == "--help":
             print_help_exit()
         elif arg.isdigit() and int(arg) >= 0 and fixed_solutions == None:
-            fixed_solutions = [random.choice(game.VALID_SOLUTIONS) for i in range(int(arg))]
-            solutions = set()
-            for i in range(int(arg)):
-                potential_solutions = set(game.VALID_SOLUTIONS).difference(solutions)
-                solution = random.choice(tuple(potential_solutions))
-                solutions.add(solution)
-            fixed_solutions = list(solutions)
+            fixed_solutions = random.choices(game.VALID_SOLUTIONS, k=int(arg))
         elif arg == "--hints":
             hints = True
         else:

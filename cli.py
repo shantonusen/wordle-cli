@@ -32,15 +32,8 @@ class CLIConfig:
     SHARE_EMOJI = {
         LetterStates.CORRECTPOSITION:    "🟩",
         LetterStates.INCORRECTPOSITION:  "🟨",
-        LetterStates.NOTPRESENT:         "⬛"
-        }
-    WIN_MESSAGES = {
-        1: "🤯 GENIUS",
-        2: "🧠 MAGNIFICENT",
-        3: "🔥 IMPRESSIVE",
-        4: "🏆 SPLENDID",
-        5: "🏅 GREAT",
-        6: "👍 NICE"
+        LetterStates.NOTPRESENT:         "⬛",
+        LetterStates.NOTGUESSEDYET:      "⬜️"
         }
 
     # create new CLIConfig, loop through attributes and override values from config
@@ -104,11 +97,17 @@ class CLIPlayer:
         self.out(f"{ self._C.WARN }{ warning }")
 
     def handle_win(self, round, out_of_rounds):
-        self.out(f"{ self._C.WIN }{ self._C.WIN_MESSAGES[round] }! Got it in { round }/{ out_of_rounds } rounds")
+        self.out(f"{ self._C.WIN }Got it in { round }/{ out_of_rounds } rounds")
 
         share_text = f"wordle-cli {(str(self.GAME_NUMBER)+' ' if self.GAME_NUMBER else '')}{round}/{out_of_rounds}\n"
-        for _, states in self._response_history:
-            share_text += "\n" + "".join(self._C.SHARE_EMOJI[state] for state in states)
+        for _, states_array in self._response_history:
+            share_text += "\n"
+            share_line = ""
+            for states in states_array:
+                if len(share_line):
+                    share_line += " "
+                share_line += "".join(self._C.SHARE_EMOJI[state] for state in states)
+            share_text += share_line
 
         if CLIPlayer.try_clipboard(share_text):
             self.out(f"📣 Shareable summary copied to clipboard")

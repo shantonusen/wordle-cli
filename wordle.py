@@ -1,6 +1,8 @@
 import os
 from enum import Enum
 from typing import List
+import functools
+import operator
 
 class LetterStates(Enum):
     NOTGUESSEDYET = 0
@@ -28,6 +30,7 @@ class Game:
     def play(self, player, solutions, hints=False, rounds=DEFAULT_ROUNDS):
         player.start()
         round = 1
+        won_array = [False for i in range(len(solutions))]
         while round <= rounds:
             while True:
                 guess = player.guess(round, rounds)
@@ -41,7 +44,16 @@ class Game:
                 else:
                     break
 
-            states_array = [Game.check_guess(guess, solution) for solution in solutions]
+            states_array = []
+            for i in range(len(solutions)):
+                solution = solutions[i]
+                if not won_array[i]:
+                    state = Game.check_guess(guess, solution)
+                    if state == Game.WIN_STATES:
+                        won_array[i] = True
+                    states_array.append(state)
+                else:
+                    states_array.append([LetterStates.NOTGUESSEDYET for _ in range(Game.LENGTH)])
 
 #            if hints and states != Game.WIN_STATES:
 #                self.POSSIBLE_WORDS = [w for w in self.POSSIBLE_WORDS if Game.is_same_response(guess, w, states)]
@@ -51,7 +63,7 @@ class Game:
             hint = -1
 
             player.handle_response(guess, states_array, hint)
-            if states_array == [Game.WIN_STATES for i in range(len(solutions))]:
+            if functools.reduce(operator.and_, won_array):
                 if hasattr(player, "handle_win"):
                     player.handle_win(round, rounds)
                 return round
