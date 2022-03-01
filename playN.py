@@ -23,23 +23,22 @@ if __name__=="__main__":
 
     fixed_solutions = None
     hints = False
+    game_size = None
     for arg in sys.argv[1:]:
         if arg == "-h" or arg == "--help":
             print_help_exit()
-        elif arg.isdigit() and int(arg) >= 0 and fixed_solutions == None:
-            fixed_solutions = random.choices(game.VALID_SOLUTIONS, k=int(arg))
+        elif arg.isdigit() and int(arg) >= 0 and game_size == None:
+            game_size = int(arg)
         elif arg == "--hints":
             hints = True
         else:
             player.warn(f"Invalid argument { arg }")
             print_help_exit()
 
-    if not fixed_solutions:
-        fixed_solutions = [random.choice(game.VALID_SOLUTIONS)]
-
-    rounds = len(fixed_solutions) + 5
+    rounds = game_size + 5
 
     while True:
+        fixed_solutions = random.choices(game.VALID_SOLUTIONS, k=game_size)
         try:
             game.play(player, fixed_solutions, hints=hints, rounds=rounds)
         except (KeyboardInterrupt, EOFError):
