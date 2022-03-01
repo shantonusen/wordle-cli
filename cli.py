@@ -42,7 +42,7 @@ class CLIConfig:
         5: "🏅 GREAT",
         6: "👍 NICE"
         }
-    
+
     # create new CLIConfig, loop through attributes and override values from config
     @staticmethod
     def from_ini(config_file="config.ini"):
@@ -84,8 +84,8 @@ class CLIPlayer:
         self.out(f"Let's play a game of Wordle")
         self.update_keyboard()
 
-    def guess(self, round) -> str:
-        prompt = f"Guess { round }/{ Game.ROUNDS}: "
+    def guess(self, round, out_of_rounds) -> str:
+        prompt = f"Guess { round }/{ out_of_rounds }: "
         guess = input(prompt).upper()
         sys.stdout.write(f"\033[A\033[{len(prompt)}C\033[K") # move cursor up one line, right by len(prompt), then clear rest of line
         return guess
@@ -102,10 +102,10 @@ class CLIPlayer:
     def warn(self, warning):
         self.out(f"{ self._C.WARN }{ warning }")
 
-    def handle_win(self, round):
-        self.out(f"{ self._C.WIN }{ self._C.WIN_MESSAGES[round] }! Got it in { round }/{ Game.ROUNDS } rounds")
-        
-        share_text = f"wordle-cli {(str(self.GAME_NUMBER)+' ' if self.GAME_NUMBER else '')}{round}/{Game.ROUNDS}\n"
+    def handle_win(self, round, out_of_rounds):
+        self.out(f"{ self._C.WIN }{ self._C.WIN_MESSAGES[round] }! Got it in { round }/{ out_of_rounds } rounds")
+
+        share_text = f"wordle-cli {(str(self.GAME_NUMBER)+' ' if self.GAME_NUMBER else '')}{round}/{out_of_rounds}\n"
         for _, states in self._response_history:
             share_text += "\n" + "".join(self._C.SHARE_EMOJI[state] for state in states)
 
@@ -139,7 +139,7 @@ class CLIPlayer:
         elif self._lines_since_keyboard == -1:
             sys.stdout.write("\n")
             self._lines_since_keyboard = 1
-  
+
     # static method for use by other Player types
     @staticmethod
     def pretty_response(word, states, config: CLIConfig) -> str:

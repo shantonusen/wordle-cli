@@ -9,11 +9,11 @@ class LetterStates(Enum):
     CORRECTPOSITION = 3
 
 class Game:
-    ROUNDS = 6
+    DEFAULT_ROUNDS = 6
     LENGTH = 5
     WIN_STATES = [LetterStates.CORRECTPOSITION for _ in range(LENGTH)]
 
-    def __init__(self, path_solutions="data/solutions.txt", path_guesses="data/guesses.txt"):
+    def __init__(self, path_solutions="data/solutions.txt", path_guesses="data/guesses.txt", rounds=DEFAULT_ROUNDS):
         with open(os.path.join(os.path.dirname(__file__), path_solutions), "r") as f:
             self.VALID_SOLUTIONS = tuple(l.upper() for l in f.read().splitlines() if len(l) == self.LENGTH)
 
@@ -24,13 +24,15 @@ class Game:
         self.VALID_GUESSES = tuple(set(self.VALID_SOLUTIONS + self.VALID_GUESSES))
 
         self.POSSIBLE_WORDS = list(self.VALID_GUESSES)
-  
+
+        self.rounds = rounds
+
     def play(self, player, solution, hints=False):
         player.start()
         round = 1
-        while round <= self.ROUNDS:
+        while round <= self.rounds:
             while True:
-                guess = player.guess(round)
+                guess = player.guess(round, self.rounds)
                 if player.ASSUME_GUESSES_VALID:
                     break
                 elif len(guess) != self.LENGTH or not guess.isalpha():
@@ -40,7 +42,7 @@ class Game:
                     player.warn(f"{ guess } not in dict".strip())
                 else:
                     break
-           
+
             states = Game.check_guess(guess, solution)
 
             if hints and states != Game.WIN_STATES:
@@ -52,7 +54,7 @@ class Game:
             player.handle_response(guess, states, hint)
             if states == Game.WIN_STATES:
                 if hasattr(player, "handle_win"):
-                    player.handle_win(round)
+                    player.handle_win(round, self.rounds)
                 return round
 
             round += 1
@@ -60,12 +62,12 @@ class Game:
         if hasattr(player, "handle_loss"):
             player.handle_loss(solution)
         return None
-    
+
     @staticmethod
     def check_guess(guess: str, solution: str) -> List[LetterStates]:
         if guess == solution:
             return Game.WIN_STATES
-        
+
         # https://mathspp.com/blog/solving-wordle-with-python
         # pool is set of letters in the solution available for INCORRECTPOSITION
         pool = {}
@@ -74,7 +76,7 @@ class Game:
                 continue
             if s in pool:
                 pool[s] += 1
-            else: 
+            else:
                 pool[s] = 1
 
         states = []
@@ -92,16 +94,16 @@ class Game:
     def is_same_response(guess: str, solution: str, other_response: List[LetterStates]) -> bool:
         if guess == solution:
             return other_response == Game.WIN_STATES
-        
+
         # https://mathspp.com/blog/solving-wordle-with-python
-        # pool is set of letters in the solution available for INCORRECTPOSITION 
+        # pool is set of letters in the solution available for INCORRECTPOSITION
         pool = {}
         for g, s in zip(guess, solution):
             if g == s:
                 continue
             if s in pool:
                 pool[s] += 1
-            else: 
+            else:
                 pool[s] = 1
 
         for guess_letter, solution_letter, other_state in zip(guess, solution, other_response):
@@ -115,5 +117,5 @@ class Game:
             else:
                 if other_state != LetterStates.NOTPRESENT:
                     return False
-        
+
         return True
