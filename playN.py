@@ -38,7 +38,7 @@ if __name__=="__main__":
     rounds = game_size + 5
 
     while True:
-        fixed_solutions = random.choices(game.VALID_SOLUTIONS, k=game_size)
+        fixed_solutions = random.sample(game.VALID_SOLUTIONS, game_size)
         try:
             game.play(player, fixed_solutions, hints=hints, rounds=rounds)
         except (KeyboardInterrupt, EOFError):
