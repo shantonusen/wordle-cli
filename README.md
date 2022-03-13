@@ -13,6 +13,7 @@ To download the code and run it:
 git clone https://github.com/shantonusen/wordle-cli.git && cd wordle-cli
 python3 distribution.py
 python3 doubles.py
+python3 offbyone.py
 ```
 
 ## `distribution.py`
@@ -113,4 +114,544 @@ Answers with double-double repeating letters: 38/2309
   VIVID
 Answers with double repeating letters: 689/2309
   <not printed>
+```
+
+## `offbyone.py`
+
+```
+XIGHT has 9 potential solutions:
+  EIGHT
+  FIGHT
+  LIGHT
+  MIGHT
+  NIGHT
+  RIGHT
+  SIGHT
+  TIGHT
+  WIGHT
+XOUND has 8 potential solutions:
+  BOUND
+  FOUND
+  HOUND
+  MOUND
+  POUND
+  ROUND
+  SOUND
+  WOUND
+XOWER has 7 potential solutions:
+  COWER
+  LOWER
+  MOWER
+  POWER
+  ROWER
+  SOWER
+  TOWER
+XATCH has 7 potential solutions:
+  BATCH
+  CATCH
+  HATCH
+  LATCH
+  MATCH
+  PATCH
+  WATCH
+SHAXE has 7 potential solutions:
+  SHADE
+  SHAKE
+  SHALE
+  SHAME
+  SHAPE
+  SHARE
+  SHAVE
+GRAXE has 6 potential solutions:
+  GRACE
+  GRADE
+  GRAPE
+  GRATE
+  GRAVE
+  GRAZE
+XATTY has 6 potential solutions:
+  BATTY
+  CATTY
+  FATTY
+  PATTY
+  RATTY
+  TATTY
+XAUNT has 6 potential solutions:
+  DAUNT
+  GAUNT
+  HAUNT
+  JAUNT
+  TAUNT
+  VAUNT
+SXORE has 6 potential solutions:
+  SCORE
+  SHORE
+  SNORE
+  SPORE
+  STORE
+  SWORE
+XASTE has 6 potential solutions:
+  BASTE
+  CASTE
+  HASTE
+  PASTE
+  TASTE
+  WASTE
+STAXE has 6 potential solutions:
+  STAGE
+  STAKE
+  STALE
+  STARE
+  STATE
+  STAVE
+XILLY has 6 potential solutions:
+  BILLY
+  DILLY
+  FILLY
+  HILLY
+  SILLY
+  WILLY
+SPIXE has 5 potential solutions:
+  SPICE
+  SPIKE
+  SPINE
+  SPIRE
+  SPITE
+SXOUT has 5 potential solutions:
+  SCOUT
+  SHOUT
+  SNOUT
+  SPOUT
+  STOUT
+XUSTY has 5 potential solutions:
+  DUSTY
+  GUSTY
+  LUSTY
+  MUSTY
+  RUSTY
+XYING has 5 potential solutions:
+  DYING
+  EYING
+  LYING
+  TYING
+  VYING
+STOXE has 5 potential solutions:
+  STOKE
+  STOLE
+  STONE
+  STORE
+  STOVE
+XEACH has 5 potential solutions:
+  BEACH
+  LEACH
+  PEACH
+  REACH
+  TEACH
+XATER has 5 potential solutions:
+  CATER
+  EATER
+  HATER
+  LATER
+  WATER
+SXARE has 5 potential solutions:
+  SCARE
+  SHARE
+  SNARE
+  SPARE
+  STARE
+XULLY has 5 potential solutions:
+  BULLY
+  DULLY
+  FULLY
+  GULLY
+  SULLY
+XOUGH has 5 potential solutions:
+  BOUGH
+  COUGH
+  DOUGH
+  ROUGH
+  TOUGH
+XANDY has 5 potential solutions:
+  CANDY
+  DANDY
+  HANDY
+  RANDY
+  SANDY
+XOLLY has 5 potential solutions:
+  DOLLY
+  FOLLY
+  GOLLY
+  HOLLY
+  JOLLY
+XOVER has 5 potential solutions:
+  COVER
+  HOVER
+  LOVER
+  MOVER
+  ROVER
+XUNCH has 5 potential solutions:
+  BUNCH
+  HUNCH
+  LUNCH
+  MUNCH
+  PUNCH
+SXACK has 5 potential solutions:
+  SHACK
+  SLACK
+  SMACK
+  SNACK
+  STACK
+XROWN has 5 potential solutions:
+  BROWN
+  CROWN
+  DROWN
+  FROWN
+  GROWN
+XRIED has 5 potential solutions:
+  CRIED
+  DRIED
+  FRIED
+  PRIED
+  TRIED
+SXOOP has 5 potential solutions:
+  SCOOP
+  SLOOP
+  SNOOP
+  STOOP
+  SWOOP
+XLUSH has 4 potential solutions:
+  BLUSH
+  FLUSH
+  PLUSH
+  SLUSH
+BEXCH has 4 potential solutions:
+  BEACH
+  BEECH
+  BELCH
+  BENCH
+XARRY has 4 potential solutions:
+  CARRY
+  HARRY
+  MARRY
+  PARRY
+PRIXE has 4 potential solutions:
+  PRICE
+  PRIDE
+  PRIME
+  PRIZE
+PAXER has 4 potential solutions:
+  PALER
+  PAPER
+  PARER
+  PAYER
+XRAWL has 4 potential solutions:
+  BRAWL
+  CRAWL
+  DRAWL
+  TRAWL
+CRAXE has 4 potential solutions:
+  CRANE
+  CRATE
+  CRAVE
+  CRAZE
+CLXCK has 4 potential solutions:
+  CLACK
+  CLICK
+  CLOCK
+  CLUCK
+XEEDY has 4 potential solutions:
+  NEEDY
+  REEDY
+  SEEDY
+  WEEDY
+XRAIN has 4 potential solutions:
+  BRAIN
+  DRAIN
+  GRAIN
+  TRAIN
+FLXCK has 4 potential solutions:
+  FLACK
+  FLECK
+  FLICK
+  FLOCK
+BASIX has 4 potential solutions:
+  BASIC
+  BASIL
+  BASIN
+  BASIS
+STEEX has 4 potential solutions:
+  STEED
+  STEEL
+  STEEP
+  STEER
+XOAST has 4 potential solutions:
+  BOAST
+  COAST
+  ROAST
+  TOAST
+FIXER has 4 potential solutions:
+  FIBER
+  FILER
+  FINER
+  FIXER
+XINER has 4 potential solutions:
+  DINER
+  FINER
+  LINER
+  MINER
+STORX has 4 potential solutions:
+  STORE
+  STORK
+  STORM
+  STORY
+XROVE has 4 potential solutions:
+  DROVE
+  GROVE
+  PROVE
+  TROVE
+PROXE has 4 potential solutions:
+  PROBE
+  PRONE
+  PROSE
+  PROVE
+BRINX has 4 potential solutions:
+  BRINE
+  BRING
+  BRINK
+  BRINY
+XREAK has 4 potential solutions:
+  BREAK
+  CREAK
+  FREAK
+  WREAK
+XONIC has 4 potential solutions:
+  CONIC
+  IONIC
+  SONIC
+  TONIC
+XRANK has 4 potential solutions:
+  CRANK
+  DRANK
+  FRANK
+  PRANK
+XRICK has 4 potential solutions:
+  BRICK
+  CRICK
+  PRICK
+  TRICK
+XOIST has 4 potential solutions:
+  FOIST
+  HOIST
+  JOIST
+  MOIST
+SHARX has 4 potential solutions:
+  SHARD
+  SHARE
+  SHARK
+  SHARP
+SXILL has 4 potential solutions:
+  SKILL
+  SPILL
+  STILL
+  SWILL
+XASTY has 4 potential solutions:
+  HASTY
+  NASTY
+  PASTY
+  TASTY
+XLACK has 4 potential solutions:
+  BLACK
+  CLACK
+  FLACK
+  SLACK
+XOUCH has 4 potential solutions:
+  COUCH
+  POUCH
+  TOUCH
+  VOUCH
+XOOSE has 4 potential solutions:
+  GOOSE
+  LOOSE
+  MOOSE
+  NOOSE
+XEVER has 4 potential solutions:
+  FEVER
+  LEVER
+  NEVER
+  SEVER
+STEAX has 4 potential solutions:
+  STEAD
+  STEAK
+  STEAL
+  STEAM
+STAXK has 4 potential solutions:
+  STACK
+  STALK
+  STANK
+  STARK
+BLXND has 4 potential solutions:
+  BLAND
+  BLEND
+  BLIND
+  BLOND
+XIVER has 4 potential solutions:
+  DIVER
+  GIVER
+  LIVER
+  RIVER
+TRIXE has 4 potential solutions:
+  TRIBE
+  TRICE
+  TRIPE
+  TRITE
+XINCH has 4 potential solutions:
+  CINCH
+  FINCH
+  PINCH
+  WINCH
+SXEAR has 4 potential solutions:
+  SHEAR
+  SMEAR
+  SPEAR
+  SWEAR
+STXCK has 4 potential solutions:
+  STACK
+  STICK
+  STOCK
+  STUCK
+XAINT has 4 potential solutions:
+  FAINT
+  PAINT
+  SAINT
+  TAINT
+SCALX has 4 potential solutions:
+  SCALD
+  SCALE
+  SCALP
+  SCALY
+SXING has 4 potential solutions:
+  SLING
+  STING
+  SUING
+  SWING
+SXELL has 4 potential solutions:
+  SHELL
+  SMELL
+  SPELL
+  SWELL
+XOUSE has 4 potential solutions:
+  HOUSE
+  LOUSE
+  MOUSE
+  ROUSE
+COVEX has 4 potential solutions:
+  COVEN
+  COVER
+  COVET
+  COVEY
+MANGX has 4 potential solutions:
+  MANGA
+  MANGE
+  MANGO
+  MANGY
+SHEEX has 4 potential solutions:
+  SHEEN
+  SHEEP
+  SHEER
+  SHEET
+SXEEP has 4 potential solutions:
+  SHEEP
+  SLEEP
+  STEEP
+  SWEEP
+XOWEL has 4 potential solutions:
+  BOWEL
+  DOWEL
+  TOWEL
+  VOWEL
+XITTY has 4 potential solutions:
+  BITTY
+  DITTY
+  KITTY
+  WITTY
+XUDGE has 4 potential solutions:
+  BUDGE
+  FUDGE
+  JUDGE
+  NUDGE
+XALLY has 4 potential solutions:
+  DALLY
+  RALLY
+  SALLY
+  TALLY
+DXLLY has 4 potential solutions:
+  DALLY
+  DILLY
+  DOLLY
+  DULLY
+XIDER has 4 potential solutions:
+  AIDER
+  CIDER
+  RIDER
+  WIDER
+RIXER has 4 potential solutions:
+  RIDER
+  RIPER
+  RISER
+  RIVER
+XREED has 4 potential solutions:
+  BREED
+  CREED
+  FREED
+  GREED
+CHXCK has 4 potential solutions:
+  CHECK
+  CHICK
+  CHOCK
+  CHUCK
+XITCH has 4 potential solutions:
+  DITCH
+  HITCH
+  PITCH
+  WITCH
+XLANK has 4 potential solutions:
+  BLANK
+  CLANK
+  FLANK
+  PLANK
+SXASH has 4 potential solutions:
+  SLASH
+  SMASH
+  STASH
+  SWASH
+WAXER has 4 potential solutions:
+  WAFER
+  WAGER
+  WATER
+  WAVER
+XEAST has 4 potential solutions:
+  BEAST
+  FEAST
+  LEAST
+  YEAST
+BLAXE has 4 potential solutions:
+  BLADE
+  BLAME
+  BLARE
+  BLAZE
+SXUNK has 4 potential solutions:
+  SKUNK
+  SLUNK
+  SPUNK
+  STUNK
+XRILL has 4 potential solutions:
+  DRILL
+  FRILL
+  GRILL
+  KRILL
+SPOOX has 4 potential solutions:
+  SPOOF
+  SPOOK
+  SPOOL
+  SPOON
 ```
