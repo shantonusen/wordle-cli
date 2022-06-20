@@ -31,25 +31,44 @@ if len(input_results) == 0:
     raise ValueError("No inputs")
 
 game = Game()
-paths = {}
 
-# start going through the potential solutions and seeing if the input could work
+solutions = {}
+# for each solution, maintain an array of sets of what guess could have been used for each round.
 for solution in game.VALID_SOLUTIONS:
-    print(f"Solution {solution}")
-    could_be = [[] for i in range(len(input_results))]
+    solutions[solution] = [set() for input_result in input_results]
 
-    for guess in game.VALID_GUESSES:
-        check_guess = Game.check_guess(guess, solution)
-        for i, input_result in enumerate(input_results):
-            if input_result == check_guess:
-                could_be[i].append(guess)
+# for each round, try to figure out what guesses would work for each solution
+for i, result_state in enumerate(input_results):
+    print(f"Solving for row {i} {sys.argv[1+i]}")
+    solutions_to_prune = set()
+    j = 0
+    jlen = len(solutions)
+    for solution, row_arrays in solutions.items():
+        print(f"  Solving for solution {solution} ({j} out of {jlen})")
+        for guess in game.VALID_GUESSES:
+            check_guess = Game.check_guess(guess, solution)
+            if result_state == check_guess:
+#                print(f"could be {result_state} == {check_guess} for {guess}")
+                row_arrays[i].add(guess)
+        if len(row_arrays[i]) == 0:
+            solutions_to_prune.add(solution)
+        j += 1
+    for solution in solutions_to_prune:
+        print(f"    No valid guesses for solution {solution} for row {i}, pruning...")
+        del solutions[solution]
 
-    # if every input slot has candidate words, this is good
-    if all(could_be):
-        paths[solution] = could_be
-
-for solution, path in paths.items():
+common_words = set(game.VALID_SOLUTIONS)
+for solution, row_arrays in solutions.items():
     print(f"Solution could be {solution}")
-    for i, guesses in enumerate(path):
-        guesses_str = ' '.join(sorted(guesses))
+    likely_guesses = []
+    unlikely_guesses = []
+    for i, guesses in enumerate(row_arrays):
+#        guesses_str = ' '.join(sorted(guesses))
+#        print(f"  Guess {i} matching {sys.argv[1+i]} could be: {guesses_str}")
+        likely_guesses.append(guesses & common_words)
+        unlikely_guesses.append(guesses - common_words)
+
+    for i, guesses in enumerate(row_arrays):
+        guesses_str = ' '.join(sorted(likely_guesses[i]))
+        guesses_str += ' (could also be ' + ' '.join(sorted(unlikely_guesses[i])) + ')'
         print(f"  Guess {i} matching {sys.argv[1+i]} could be: {guesses_str}")
