@@ -59,7 +59,6 @@ for i, result_state in enumerate(input_results):
 
 common_words = set(game.VALID_SOLUTIONS)
 for solution, row_arrays in solutions.items():
-    print(f"Solution could be {solution}")
     likely_guesses = []
     unlikely_guesses = []
     for i, guesses in enumerate(row_arrays):
@@ -67,6 +66,8 @@ for solution, row_arrays in solutions.items():
 #        print(f"  Guess {i} matching {sys.argv[1+i]} could be: {guesses_str}")
         likely_guesses.append(guesses & common_words)
         unlikely_guesses.append(guesses - common_words)
+
+    print(f"Solution could be {solution}")
 
     for i, guesses in enumerate(row_arrays):
         guesses_str = ' '.join(sorted(likely_guesses[i]))
