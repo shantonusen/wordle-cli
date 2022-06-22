@@ -11,6 +11,13 @@ from multiprocessing import Pool
 
 from wordle import Game, LetterStates
 
+game = None
+
+def init_game():
+    global game
+
+    game = Game()
+
 def parse_args():
     input_results = []
     for input_result in sys.argv[1:]:
@@ -36,7 +43,7 @@ def parse_args():
     return input_results
 
 def f_solve_for_solution(args):
-    (game, result_state, solution, j, jlen) = args
+    (result_state, solution, j, jlen) = args
 
     possible_guesses = set()
     print(f"  Solving for solution {solution} ({j} out of {jlen})")
@@ -58,12 +65,12 @@ if __name__ == '__main__':
     for solution in game.VALID_SOLUTIONS:
         solutions[solution] = [None for input_result in input_results]
 
-    # for each round, try to figure out what guesses would work for each solution
-    for i, result_state in enumerate(input_results):
-        print(f"Solving for row {i} {sys.argv[1+i]}")
-        with Pool() as pool:
+    with Pool(os.cpu_count(), init_game) as pool:
+        # for each round, try to figure out what guesses would work for each solution
+        for i, result_state in enumerate(input_results):
+            print(f"Solving for row {i} {sys.argv[1+i]}")
             slen = len(solutions)
-            args = [(game, result_state, solution, j, slen) for j, solution in enumerate(solutions)]
+            args = [(result_state, solution, j, slen) for j, solution in enumerate(solutions)]
             results = pool.imap_unordered(f_solve_for_solution, args, 100)
             for solution, possible_guesses in results:
                 if len(possible_guesses):
