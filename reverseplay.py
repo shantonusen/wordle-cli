@@ -7,6 +7,7 @@ import sys
 from collections import Counter
 import itertools
 import multiprocessing
+from multiprocessing import Pool
 
 from wordle import Game, LetterStates
 
@@ -60,19 +61,16 @@ if __name__ == '__main__':
     # for each round, try to figure out what guesses would work for each solution
     for i, result_state in enumerate(input_results):
         print(f"Solving for row {i} {sys.argv[1+i]}")
-        solutions_to_prune = set()
-        j = 0
-        jlen = len(solutions)
-        for solution, row_arrays in solutions.items():
-            (solution, possible_guesses) = f_solve_for_solution((game, result_state, solution, j, jlen))
-            if len(possible_guesses):
-                solutions[solution][i] = possible_guesses
-            else:
-                solutions_to_prune.add(solution)
-            j += 1
-        for solution in solutions_to_prune:
-            print(f"    No valid guesses for solution {solution} for row {i}, pruning...")
-            del solutions[solution]
+        with Pool() as pool:
+            slen = len(solutions)
+            args = [(game, result_state, solution, j, slen) for j, solution in enumerate(solutions)]
+            results = pool.imap_unordered(f_solve_for_solution, args, 100)
+            for solution, possible_guesses in results:
+                if len(possible_guesses):
+                    solutions[solution][i] = possible_guesses
+                else:
+                    print(f"    No valid guesses for solution {solution} for row {i}, pruning...")
+                    del solutions[solution]
 
     common_words = set(game.VALID_SOLUTIONS)
     for solution, row_arrays in solutions.items():
